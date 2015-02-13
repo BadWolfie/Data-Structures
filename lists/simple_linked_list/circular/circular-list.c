@@ -1,4 +1,4 @@
-#include "list.h"
+#include "circular-list.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -20,10 +20,16 @@ void list_destroy(list * header)
 
 void list_add_node(list * header, datatype value)
 {
-	node * aux = (node *) malloc(sizeof(node));
-	aux->item = value;
-	aux->next = (*header);
-	(*header) = aux;
+	node * new_node = (node *) malloc(sizeof(node));
+	new_node->data = value;
+	new_node->next = new_node;
+
+	if (*header) {
+		new_node->next = (*header)->next;
+		(*header)->next = new_node;
+	}
+	
+	(*header) = new_node;
 }
 
 void list_del_node(list * header, datatype value)
@@ -32,8 +38,8 @@ void list_del_node(list * header, datatype value)
 	node * previous = NULL;
 
 	bool found = false;
-	while (current && !found) {
-		found = (current->item == value);
+	while ((current->next != (*header)) && !found) {
+		found = (current->data == value);
 		if (!found) {
 			previous = current;
 			current = current->next;
@@ -54,7 +60,8 @@ void list_del_node(list * header, datatype value)
 node * list_seek_node(list header, datatype value)
 {
 	list aux;
-	for (aux = header; aux && (aux->item != value); aux = aux->next);
+	for (aux = header; (aux->next != header) && 
+			(aux->data != value); aux = aux->next);
 	return aux;
 }
 
@@ -63,9 +70,12 @@ int list_count_nodes(list header)
 	list aux;
 	int count = 0;
 
-	for (aux = header; aux; aux = aux->next) count++;
+	for (aux = header; aux->next != header; aux = aux->next) count++;
 	return count;
 }
 
 bool list_is_empty(list header)
 { return header == NULL; }
+
+bool list_has_one_node(list header)
+{ return (header->next == header); }
