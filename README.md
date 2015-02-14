@@ -1,5 +1,5 @@
 # Data-Structures
-Sample code for different types of data structures in C for *educational purposes*.
+Sample code for different types of data structures written in C. Meant for *educational purposes*.
 
 ####Including:
 * Stacks
