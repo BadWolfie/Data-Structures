@@ -69,3 +69,10 @@ int list_count_nodes(list header)
 
 bool list_is_empty(list header)
 { return header == NULL; }
+
+void list_print(list header)
+{
+	list aux;
+	for (aux = header; aux; aux = aux->next)
+		;// print(data); // How to print it depends on its type.
+}

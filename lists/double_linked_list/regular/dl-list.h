@@ -23,6 +23,8 @@ void dl_list_del_node(list * header, datatype value);
 
 node * dl_list_seek_node(list header, datatype value);
 int dl_list_count_nodes(list header);
+
 bool dl_list_is_empty(list header);
+void dl_list_print(list header);
 
 #endif

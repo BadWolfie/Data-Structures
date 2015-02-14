@@ -22,10 +22,11 @@ void dl_c_list_add_node(list * header, datatype value);
 void dl_c_list_del_node(list * header, datatype value);
 
 node * dl_c_list_seek_node(list header, datatype value);
-node * c_list_seek_last_node(list header);
 int dl_c_list_count_nodes(list header);
 
 bool dl_c_list_is_empty(list header);
 bool dl_c_list_has_one_node(list header);
+
+void dl_c_list_print(list header);
 
 #endif

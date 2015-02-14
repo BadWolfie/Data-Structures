@@ -22,6 +22,8 @@ void list_del_node(list * header, datatype value);
 
 node * list_seek_node(list header, datatype value);
 int list_count_nodes(list header);
+
 bool list_is_empty(list header);
+void list_print(list header);
 
 #endif

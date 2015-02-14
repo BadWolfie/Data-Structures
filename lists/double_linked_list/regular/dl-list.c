@@ -36,9 +36,8 @@ void dl_list_del_node(list * header, datatype value)
 
 	while (current && !found) {
 		found = (current->item == value);
-		if (!found) {
+		if (!found)
 			current = current->next;
-		}
 	}
 
 	if (found) {
@@ -73,5 +72,13 @@ int dl_list_count_nodes(list header)
 	return count;
 }
 
+
 bool dl_list_is_empty(list header)
 { return header == NULL; }
+
+void dl_list_print(list header)
+{
+	list aux;
+	for (aux = header; aux; aux = aux->next)
+		;// print(data); // How to print it depends on its type.
+}

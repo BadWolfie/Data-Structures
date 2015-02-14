@@ -88,3 +88,10 @@ bool c_list_is_empty(list header)
 
 bool c_list_has_one_node(list header)
 { return (header->next == header); }
+
+void c_list_print(list header)
+{
+	list aux;
+	for (aux = header; aux->next != header; aux = aux->next)
+		;// print(data); // How to print it depends on its type.
+}

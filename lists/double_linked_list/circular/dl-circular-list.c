@@ -26,10 +26,9 @@ void dl_c_list_add_node(list * header, datatype value)
 	new_node->prev = new_node;
 
 	if (*header) {
-		node * aux = c_list_seek_last_node(*header);
-		aux->next = new_node;
-		new_node->prev = aux;
-		
+		(*header)->prev->next = new_node;
+		new_node->prev = (*header)->prev;
+
 		new_node->next = (*header);
 		(*header)->prev = new_node;
 	}
@@ -39,22 +38,18 @@ void dl_c_list_add_node(list * header, datatype value)
 
 void dl_c_list_del_node(list * header, datatype value)
 {
-	node * current = (*header);
 	bool found = false;
+	node * current = (*header);
 
 	while ((current->next != (*header)) && !found) {
 		found = (current->data == value);
-		if (!found) {
-			previous = current;
+		if (!found)
 			current = current->next;
-		}
 	}
 
 	if (found) {
-		if (current == (*header))
-			(*header) = current->next;
-		else
-			previous->next = current->next;
+		current->next->prev = current->prev;
+		current->prev->next = current->next;
 		free(current);
 	} else
 		puts("Node not found.");
@@ -66,13 +61,6 @@ node * dl_c_list_seek_node(list header, datatype value)
 	list aux;
 	for (aux = header; (aux->next != header) && 
 			(aux->data != value); aux = aux->next);
-	return aux;
-}
-
-node * c_list_seek_last_node(list header)
-{
-	list aux;
-	for (aux = header; aux->next != header; aux = aux->next);
 	return aux;
 }
 
@@ -90,3 +78,10 @@ bool dl_c_list_is_empty(list header)
 
 bool dl_c_list_has_one_node(list header)
 { return (header->next == header); }
+
+void dl_c_list_print(list header)
+{
+	list aux;
+	for (aux = header; aux->next != header; aux = aux->next)
+		;// print(data); // How to print it depends on its type.
+}
