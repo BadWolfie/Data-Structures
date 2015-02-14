@@ -3,28 +3,30 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void list_init(list * header)
+void dl_c_list_init(list * header)
 {
-	if (header) header = NULL;
+	if (header) *header = NULL;
 }
 
-void list_destroy(list * header)
+void dl_c_list_destroy(list * header)
 {
 	node * aux;
-	for (aux = (*header); aux; aux = aux->next) {
+	for (aux = (*header); aux->next != (*header); aux = aux->next) {
 		(*header) = aux->next;
 		free(aux);
 	}
 }
 
 
-void list_add_node(list * header, datatype value)
+void dl_c_list_add_node(list * header, datatype value)
 {
 	node * new_node = (node *) malloc(sizeof(node));
 	new_node->data = value;
 	new_node->next = new_node;
+	new_node->prev = new_node;
 
 	if (*header) {
+		(*header)->prev = new_node;
 		new_node->next = (*header)->next;
 		(*header)->next = new_node;
 	}
@@ -32,7 +34,7 @@ void list_add_node(list * header, datatype value)
 	(*header) = new_node;
 }
 
-void list_del_node(list * header, datatype value)
+void dl_c_list_del_node(list * header, datatype value)
 {
 	node * current = (*header);
 	node * previous = NULL;
@@ -57,7 +59,7 @@ void list_del_node(list * header, datatype value)
 }
 
 
-node * list_seek_node(list header, datatype value)
+node * dl_c_list_seek_node(list header, datatype value)
 {
 	list aux;
 	for (aux = header; (aux->next != header) && 
@@ -65,7 +67,7 @@ node * list_seek_node(list header, datatype value)
 	return aux;
 }
 
-int list_count_nodes(list header)
+int dl_c_list_count_nodes(list header)
 {
 	list aux;
 	int count = 0;
@@ -74,8 +76,8 @@ int list_count_nodes(list header)
 	return count;
 }
 
-bool list_is_empty(list header)
+bool dl_c_list_is_empty(list header)
 { return header == NULL; }
 
-bool list_has_one_node(list header)
+bool dl_c_list_has_one_node(list header)
 { return (header->next == header); }

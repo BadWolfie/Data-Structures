@@ -35,7 +35,7 @@ void stack_push(stack * self, datatype value)
 
 datatype stack_pop(stack * self)
 {
-	if(stack_is_empty(*self)) {
+	if (stack_is_empty(*self)) {
 		puts("Stack is empty.");
 		exit(1);
 	}

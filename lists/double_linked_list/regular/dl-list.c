@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void list_init(list * header)
+void dl_list_init(list * header)
 {
-	if (header) header = NULL;
+	if (header) *header = NULL;
 }
 
-void list_destroy(list * header)
+void dl_list_destroy(list * header)
 {
 	node * aux;
 	for (aux = (*header); aux; aux = aux->next) {
@@ -18,47 +18,53 @@ void list_destroy(list * header)
 }
 
 
-void list_add_node(list * header, datatype value)
+void dl_list_add_node(list * header, datatype value)
 {
-	node * aux = (node *) malloc(sizeof(node));
-	aux->item = value;
-	aux->next = (*header);
-	(*header) = aux;
+	node * new_node = (node *) malloc(sizeof(node));
+	new_node->item = value;
+	new_node->next = (*header);
+	new_node->prev = NULL;
+
+	if (*header) (*header)->prev = new_node;
+	(*header) = new_node;
 }
 
-void list_del_node(list * header, datatype value)
+void dl_list_del_node(list * header, datatype value)
 {
-	node * current = (*header);
-	node * previous = NULL;
-
 	bool found = false;
+	node * current = (*header);
+
 	while (current && !found) {
 		found = (current->item == value);
 		if (!found) {
-			previous = current;
 			current = current->next;
 		}
 	}
 
 	if (found) {
-		if (current == (*header))
+		if (current == (*header)) {
 			(*header) = current->next;
-		else
-			previous->next = current->next;
+			current->next->prev = NULL;
+		} else if (current->next) {
+			current->prev->next = current->next;
+			current->next->prev = current->prev;
+		} else
+			current->prev->next = NULL;
+
 		free(current);
 	} else
 		puts("Node not found.");
 }
 
 
-node * list_seek_node(list header, datatype value)
+node * dl_list_seek_node(list header, datatype value)
 {
 	list aux;
 	for (aux = header; aux && (aux->item != value); aux = aux->next);
 	return aux;
 }
 
-int list_count_nodes(list header)
+int dl_list_count_nodes(list header)
 {
 	list aux;
 	int count = 0;
@@ -67,5 +73,5 @@ int list_count_nodes(list header)
 	return count;
 }
 
-bool list_is_empty(list header)
+bool dl_list_is_empty(list header)
 { return header == NULL; }

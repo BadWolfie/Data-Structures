@@ -1,6 +1,6 @@
-#ifndef C_LIST__H
-#define C_LIST__H
-/* namespace list_ */
+#ifndef DL_CIRCULAR_LIST__H
+#define DL_CIRCULAR_LIST__H
+/* namespace dl_c_list_ */
 
 #include <stdbool.h>
 
@@ -10,19 +10,20 @@ typedef struct _node
 {
 	datatype data;
 	struct _node * next;
+	struct _node * prev;
 } node;
 
 typedef node * list;
 
-void list_init(list * header);
-void list_destroy(list * header);
+void dl_c_list_init(list * header);
+void dl_c_list_destroy(list * header);
 
-void list_add_node(list * header, datatype value);
-void list_del_node(list * header, datatype value);
+void dl_c_list_add_node(list * header, datatype value);
+void dl_c_list_del_node(list * header, datatype value);
 
-node * list_seek_node(list header, datatype value);
-int list_count_nodes(list header);
-bool list_is_empty(list header);
-bool list_has_one_node(list header);
+node * dl_c_list_seek_node(list header, datatype value);
+int dl_c_list_count_nodes(list header);
+bool dl_c_list_is_empty(list header);
+bool dl_c_list_has_one_node(list header);
 
 #endif

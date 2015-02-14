@@ -5,7 +5,7 @@
 
 void list_init(list * header)
 {
-	if (header) header = NULL;
+	if (header) *header = NULL;
 }
 
 void list_destroy(list * header)
