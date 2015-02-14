@@ -26,7 +26,6 @@ int dl_c_list_count_nodes(list header);
 
 bool dl_c_list_is_empty(list header);
 bool dl_c_list_has_one_node(list header);
-
 void dl_c_list_print(list header);
 
 #endif

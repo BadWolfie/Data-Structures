@@ -80,5 +80,5 @@ void dl_list_print(list header)
 {
 	list aux;
 	for (aux = header; aux; aux = aux->next)
-		;// print(data); // How to print it depends on its type.
+		;// print(data); // How to print it depends on its type. 
 }
