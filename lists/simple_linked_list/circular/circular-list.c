@@ -25,8 +25,9 @@ void c_list_add_node(list * header, datatype value)
 	new_node->next = new_node;
 
 	if (*header) {
-		new_node->next = (*header)->next;
-		(*header)->next = new_node;
+		node * aux = c_list_seek_last_node(*header);
+		new_node->next = (*header);
+		aux->next = new_node;
 	}
 	
 	(*header) = new_node;
@@ -62,6 +63,13 @@ node * c_list_seek_node(list header, datatype value)
 	list aux;
 	for (aux = header; (aux->next != header) && 
 			(aux->data != value); aux = aux->next);
+	return aux;
+}
+
+node * c_list_seek_last_node(list header)
+{
+	list aux;
+	for (aux = header; aux->next != header; aux = aux->next);
 	return aux;
 }
 
