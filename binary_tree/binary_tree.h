@@ -27,4 +27,10 @@ bool btree_node_is_leaf(bin_tree root);
 int btree_get_depth(bin_tree root);
 void btree_get_leaf_count(bin_tree root, int * leaf_num);
 
+/* Ordered binary tree functions. */
+void btree_add_node(bin_tree * root, datatype value);
+bin_tree btree_seek_node(bin_tree root, datatype value);
+void btree_del_node(bin_tree * root, datatype value);
+void btree_replace(bin_tree * self);
+
 #endif

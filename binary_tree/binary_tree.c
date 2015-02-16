@@ -68,3 +68,73 @@ void btree_get_leaf_count(bin_tree root, int * leaf_num)
 		if (btree_node_is_leaf(root)) (*leaf_num)++;
 	}
 }
+
+
+/* Ordered binary tree functions. */
+void btree_add_node(bin_tree * root, datatype value)
+{
+	if (!(*root))
+		*root = btree_create_node(value);
+	else if ((*root)->data > value) // Comparison depends on data type
+		btree_add_node(&((*root)->left),value);
+	else
+		btree_add_node(&((*root)->right),value);
+}
+
+bin_tree btree_seek_node(bin_tree root, datatype value)
+{
+	if (!root)
+		return NULL;
+	if (root->data == value)
+		return root;
+	if (root->data > value)
+		return btree_seek_node(root->left,value);
+	else
+		return btree_seek_node(root->right,value);
+}
+
+void btree_del_node(bin_tree * root, datatype value)
+{
+	if (!(*root)) {
+		puts("Node not found.");
+		return;
+	}
+
+	if (value < (*root)->data)
+		btree_del_node(&((*root)->left),value);
+	if (value > (*root)->data)
+		btree_del_node(&((*root)->right),value);
+
+	if (value == (*root)->data) {
+		bin_tree aux = *root;
+
+		if (!aux->left)
+			(*root) = aux->right;
+		else if (!aux->right)
+			(*root) = aux->left;
+		else
+			btree_replace(&aux);
+
+		free(aux);
+	}
+}
+
+void btree_replace(bin_tree * self)
+{
+	bin_tree a, p;
+	p = *self;
+	a = (*self)->left;
+
+	while (a->right) {
+		p = a;
+		a = a->right;
+	}
+
+	(*self)->data = a->data;
+	if (p == (*self))
+		p->left = a->left;
+	else
+		p->right = a->left;
+
+	(*self) = a;
+}
