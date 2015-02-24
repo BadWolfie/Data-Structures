@@ -5,7 +5,7 @@
 
 void dl_c_list_init(list * header)
 {
-	if (header) *header = NULL;
+	if (*header) *header = NULL;
 }
 
 void dl_c_list_destroy(list * header)
