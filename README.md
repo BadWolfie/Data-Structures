@@ -9,7 +9,6 @@ Sample code for different types of data structures written in C. *Meant for educ
 	* Double-linked
 * Circular lists (same types as above)
 * Binary trees
-* Hash tables
 
 ## Usage
 Include .h and .c files containing the data structure you want to use in your project.  

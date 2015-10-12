@@ -1,0 +1,20 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns="http://usefulinc.com/ns/doap#">
+    <name xml:lang="en">Data-Structures</name>
+    <shortdesc xml:lang="en">Sample code for different types of data structures written in C.</shortdesc>
+    <description>
+      The source code for this project is available for anyone who whishes to use it at: https://github.com/badwolfie/Data-Structures
+    </description>
+    <homepage rdf:resource="https://github.com/badwolfie/Data-Structures" />
+    <bug-database rdf:resource="https://github.com/badwolfie/Data-Structures/issues" />
+    <license rdf:resource="http://spdx.org/licenses/GPL-2.0+" />
+    
+    <programming-language>C</programming-language>
+    <maintainer>
+    	<foaf:Person>
+    		<foaf:name>Ian Hernandez</foaf:name>
+    	</foaf:Person>
+    </maintainer>
+</Project>
